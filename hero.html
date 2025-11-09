@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio</title>
+  <link href="https://fonts.googleapis.com/css?family=Poppins:700,400&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #12243a;
+      color: #f8faff;
+      min-height: 100vh;
+    }
+    header {
+      background: #051532;
+      padding: 20px 0 8px 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.14);
+    }
+    nav {
+      width: 87%;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {
+      font-weight: 700;
+      font-size: 1.24rem;
+      color: #fff;
+      letter-spacing: 1px;
+    }
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 36px;
+      padding: 0;
+      margin: 0;
+    }
+    nav ul li a {
+      color: #f8faff;
+      font-size: 1.1rem;
+      text-decoration: none;
+      padding: 8px 18px;
+      border-radius: 6px;
+      transition: background 0.17s;
+      font-weight: 500;
+    }
+    nav ul li a:hover,
+    nav ul li a.active {
+      background: #07e3cf;
+      color: #051532;
+      box-shadow: 0 3px 16px #07e3cf77;
+    }
+    section {
+      width: 87%;
+      margin: 0 auto;
+      min-height: 60vh;
+      padding: 65px 0 38px 0;
+      display: none;
+    }
+    section.active {
+      display: block;
+    }
+    /* Hero (Home) */
+    #home {
+      background: #12243a;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 56px;
+      flex-wrap: wrap;
+    }
+    .hero-info {
+      max-width: 470px;
+      flex: 2 1 310px;
+    }
+    .hero-info h1 {
+      font-size: 2.9rem;
+      color: #fff;
+      margin-bottom: 9px;
+      font-weight: 700;
+      line-height: 1.13;
+    }
+    .hero-info h2 {
+      font-size: 1.6rem;
+      color: #0fe6e4;
+      margin-bottom: 27px;
+      font-weight: 400;
+      letter-spacing: 0.5px;
+    }
+    .hero-info p {
+      font-size: 1.07rem;
+      margin-bottom: 22px;
+      color: #b7cad9;
+      font-weight: 400;
+      line-height: 1.57;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 25px;
+      margin-top: 10px;
+    }
+    .hero-actions a {
+      background: linear-gradient(91deg,#0fe6e4 0%,#00b8fc 100%);
+      color: #051532;
+      font-size: 1.07rem;
+      padding: 13px 28px;
+      border-radius: 32px;
+      font-weight: 600;
+      text-decoration: none;
+      box-shadow: 0 4px 18px #00b8fc44;
+      transition: background 0.21s;
+      letter-spacing: 0.3px;
+      border: none;
+    }
+    .hero-actions a:hover {
+      background: linear-gradient(91deg,#00b8fc 0%, #0fe6e4 100%);
+      color: #fff;
+    }
+    .hero-photo {
+      flex: 1 1 220px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .photo-glow {
+      width: 290px;
+      height: 290px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #0fe6e4 12%, #00b8fc 70%, #dd2bc8 98%);
+      box-shadow: 0 0 52px 0 #00b8fc92;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+    .photo-glow img {
+      width: 240px;
+      height: 240px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 6px solid #fff;
+    }
+    /* Section titles */
+    h2.section-title {
+      color: #0fe6e4;
+      font-size: 1.54rem;
+      margin-bottom: 30px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+    /* About */
+    #about { background: #142a41; border-radius: 16px; box-shadow: 0 7px 40px #0fe6e41f; }
+    #about .about-content { max-width: 650px; margin: 0 auto;}
+    #about p { font-size: 1.04rem; color: #b7cad9; margin-bottom: 21px; line-height: 1.59; font-weight: 400;}
+    #about ul { padding-left: 18px; }
+    #about ul li { color: #07e3cf; font-size: 1.02rem; margin-bottom: 7px; font-weight: 500;}
+    /* Skills */
+    #skills { background: #162c45; border-radius: 16px; box-shadow: 0 7px 40px #0fe6e41f;}
+    #skills .skills-list { display: flex; gap: 22px; flex-wrap: wrap; justify-content: center; margin-top: 6px;}
+    .skill-card { background: #142a41; padding: 19px 17px; border-radius: 12px; min-width: 125px; box-shadow: 0 2px 18px #01b6fc40; margin-bottom: 7px;}
+    .skill-card h3 { color: #07e3cf; font-size: 1.08rem; margin-bottom: 8px; font-weight: 700;}
+    .skill-card p { color: #b7cad9; font-size: 1rem; margin: 0;}
+    /* Projects */
+    #projects { background: #142a41; border-radius: 16px; box-shadow: 0 7px 40px #0fe6e41c;}
+    #projects .projects-list { display: grid; grid-template-columns: repeat(auto-fit,minmax(188px,1fr)); gap: 22px; margin-top: 7px;}
+    .project-card { background: #162c45; padding: 16px 12px; border-radius: 12px; box-shadow: 0 2px 18px #00b8fc21; margin-bottom: 7px;}
+    .project-card h3 { color: #07e3cf; margin-bottom: 8px; font-weight: 700;}
+    .project-card p { color: #b7cad9; font-size: 1rem; margin-bottom: 12px;}
+    .project-card a { color: #00b8fc; text-decoration: underline; font-weight: 500;}
+    /* Contact */
+    #contact { background: #162c45; border-radius: 16px; box-shadow: 0 7px 40px #0fe6e41c; display: flex; justify-content: center; padding-bottom: 55px;}
+    #contact .contact-form-wrapper { max-width: 330px; width: 100%; background: #142a41; margin: auto; padding: 24px 18px 19px 18px; border-radius: 14px; box-shadow: 0 2px 18px #01b6fc18;}
+    #contact form label { color: #0fe6e4; font-weight: bold; display: block; margin-bottom: 7px; font-size: 1.03rem;}
+    #contact input, #contact textarea { width: 100%; padding: 10px; margin-bottom: 11px; border-radius: 7px; border: none; background: #162c45; color: #f8faff; font-size: 1rem;}
+    #contact button { background: linear-gradient(91deg,#0fe6e4 0%,#00b8fc 100%); color: #051532; border: none; padding: 12px 19px; border-radius: 7px; font-size: 1.04rem; font-weight: bold; cursor: pointer; margin-top: 5px; transition: background 0.22s;}
+    #contact button:hover { background: linear-gradient(91deg,#00b8fc 0%, #0fe6e4 100%); color: #fff;}
+    @media (max-width:700px) {
+      #home { flex-direction: column; gap:30px; text-align:center;}
+      .hero-info { max-width:100%; }
+      .photo-glow { margin: auto;}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <div class="logo">Portfolio.</div>
+      <ul>
+        <li><a href="#home" class="active">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section id="home" class="active">
+    <div class="hero-info">
+      <h1>Hello, It's Me<br>Dinithi Dedunu</h1>
+      <h2>And I'm a <span style="color:#07e3cf;">Frontend Developer</span></h2>
+      <p>I specialize in web development, with hands-on experience in
+designing and building functional websites using HTML, CSS,
+JavaScript, PHP and MySQL and also these days, I am further strengthening
+my skills by learning React and Node.js
+        </p>
+      <div class="hero-actions">
+        <a href="#about">More About Me</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+    <div class="hero-photo">
+      <div class="photo-glow">
+        <img src="me2.jpg" alt="" />
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about">
+    <div class="about-content">
+      <h2 class="section-title">About Me</h2>
+      <p>
+       I am a 23 years old student pursuing a BSc (Hons) Software
+Engineering at Cardiff Metropolitan University in UK. I was done my
+1st year & 2nd year. End of this november I will start my 3rd year.
+
+I specialize in web development, with hands-on experience in
+designing and building functional websites using HTML, CSS,
+JavaScript, PHP and MySQL. I am also skilled in mobile app
+development using Android, Flutter and Firebase and proficient in
+Java OOP and MongoDB. These days, I am further strengthening
+my skills by learning React and Node.js.
+I am currently seeking an internship opportunity as a Front-End
+Developer where I can apply my skills, gain industry experience
+and contribute to building innovative, user-focused solutions.
+</p>
+      <ul>
+        <li>creative, proactive & willing to learn</li>
+    
+        <li>staying consistent</li>
+        <li>I don’t give up until I find a solution</li>
+        <li>HTML, CSS, JavaScript, PHP, MySQL</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Skills Section -->
+  <section id="skills">
+    <h2 class="section-title">Skills</h2>
+    <div class="skills-list">
+      <div class="skill-card">
+        <h3>HTML5</h3>
+        <p>Clean, semantic markup</p>
+      </div>
+      <div class="skill-card">
+        <h3>CSS3</h3>
+        <p>Responsive, Grid, Flexbox</p>
+      </div>
+      <div class="skill-card">
+        <h3>JavaScript</h3>
+
+      </div>
+      <div class="skill-card">
+        <h3>PHP</h3>
+        
+      </div>
+
+      <div class="skill-card">
+        <h3>Figma</h3>
+        <p>for UI/UX Designs</p>
+      </div>
+      <div class="skill-card">
+        <h3>GitHub</h3>
+        
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects Section -->
+  <section id="projects">
+    <h2 class="section-title">Projects</h2>
+    <div class="projects-list">
+      <div class="project-card">
+        <h3>Website for GYM</h3>
+        <p>Welcome to my Gym Website Assignment!This project showcases a modern, responsive gym website for fitness enthusiasts. 🏋️‍♀️✨</p>
+        <a href="https://github.com/Dedunu2002/GYMM">View my Project</a>
+        <p>HTML, CSS, PHP, JavaScript</p>
+      </div>
+      <div class="project-card">
+        <h3>Hospital Management System</h3>
+        <p>The Hospital Management System (HMS) is a Java OOP-based desktop application that simplifies hospital operations. From managing patients and doctors to scheduling appointments and handling billing, HMS provides a complete, efficient and user-friendly solution for healthcare management.</p>
+        <a href="https://github.com/Dedunu2002/Hospital-Management-System">View my Project</a>
+        <p>Java (OOP)</p>
+      </div>
+      <div class="project-card">
+        <h3>LuxeVista-Hotel</h3>
+        <p>✨ A luxury resort booking and service reservation mobile application built with Android Studio (Java + SQLite). Guests can easily book rooms, reserve spa or restaurant services, manage profiles and leave reviews – all in one elegant app.</p>
+        <a href="https://github.com/Dedunu2002/LuxeVista-Hotel">View my Project</a>
+        <p>Android Studio (Java + SQLite)</p>
+
+        
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact">
+    <div class="contact-form-wrapper">
+      <h2 class="section-title">Contact</h2>
+      <form action="https://formspree.io/f/xeovjlvo" method="post">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" required>
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required>
+        <label for="message">Message</label>
+        <textarea id="message" name="message" rows="5" required></textarea>
+        <button type="submit">Send</button>
+      </form>
+    </div>
+  </section>
+  <script>
+    // SPA-style nav logic
+    const navLinks = document.querySelectorAll('nav ul li a');
+    const sections = document.querySelectorAll('section');
+    function showSection(hash) {
+      sections.forEach(sec => {
+        if ('#' + sec.id === hash) {
+          sec.classList.add('active');
+        } else {
+          sec.classList.remove('active');
+        }
+      });
+      navLinks.forEach(link => {
+        if (link.getAttribute('href') === hash) {
+          link.classList.add('active');
+        } else {
+          link.classList.remove('active');
+        }
+      });
+    }
+    navLinks.forEach(link => {
+      link.addEventListener('click', e => {
+        e.preventDefault();
+        const hash = link.getAttribute('href');
+        window.location.hash = hash;
+        showSection(hash);
+      });
+    });
+    window.addEventListener('DOMContentLoaded', () => {
+      const hash = window.location.hash || '#home';
+      showSection(hash);
+    });
+
+
+    
+    
+  
+  
+  document.querySelector('#contact form').addEventListener('submit', function(e){
+    e.preventDefault();
+    const form = this;
+    fetch(form.action, {
+      method: 'POST',
+      body: new FormData(form),
+      headers: {
+        'Accept': 'application/json'
+      },
+    }).then(response => {
+      if (response.ok) {
+        alert('Thank you for your message! I will get back to you soon.');
+        form.reset();
+      } else {
+        alert('There was a problem submitting your message. Please try again later.');
+      }
+    }).catch(() => {
+      alert('There was a problem connecting. Please try again later.');
+    });
+  });
+</script>
+
+
+</body>
+</html>
